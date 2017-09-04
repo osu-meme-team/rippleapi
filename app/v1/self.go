@@ -66,13 +66,8 @@ func UsersSelfSettingsPOST(md common.MethodData) common.CodeMessager {
 
 	// input sanitisation
 	*d.UsernameAKA = common.SanitiseString(*d.UsernameAKA)
-	if md.User.UserPrivileges&common.UserPrivilegeDonor > 0 {
-		d.CustomBadge.Name = common.SanitiseString(d.CustomBadge.Name)
-		d.CustomBadge.Icon = sanitiseIconName(d.CustomBadge.Icon)
-	} else {
-		d.CustomBadge.singleBadge = singleBadge{}
-		d.CustomBadge.Show = nil
-	}
+	d.CustomBadge.Name = common.SanitiseString(d.CustomBadge.Name)
+	d.CustomBadge.Icon = sanitiseIconName(d.CustomBadge.Icon)
 	d.FavouriteMode = intPtrIn(0, d.FavouriteMode, 3)
 
 	q := new(common.UpdateQuery).
